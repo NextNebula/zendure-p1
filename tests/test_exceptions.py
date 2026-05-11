@@ -1,6 +1,11 @@
 import pytest
 
-from zendure_p1 import ZendureP1ConnectionError, ZendureP1Error, ZendureP1ResponseError, ZendureP1TimeoutError
+from zendure_p1 import (
+    ZendureP1ConnectionError,
+    ZendureP1Error,
+    ZendureP1ResponseError,
+    ZendureP1TimeoutError,
+)
 
 
 def test_connection_error_is_zendure_error() -> None:

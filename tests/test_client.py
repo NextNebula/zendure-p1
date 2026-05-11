@@ -1,10 +1,14 @@
-import asyncio
-
-import pytest
 import aiohttp
+import pytest
 from aioresponses import aioresponses
 
-from zendure_p1 import Report, ZendureP1Client, ZendureP1ConnectionError, ZendureP1ResponseError, ZendureP1TimeoutError
+from zendure_p1 import (
+    Report,
+    ZendureP1Client,
+    ZendureP1ConnectionError,
+    ZendureP1ResponseError,
+    ZendureP1TimeoutError,
+)
 
 REPORT_PAYLOAD = {
     "timestamp": 1715000000,
@@ -64,8 +68,7 @@ async def test_get_report_raises_on_connection_error() -> None:
 
 async def test_get_report_raises_on_timeout() -> None:
     with aioresponses() as mock:
-        mock.get(REPORT_URL, exception=asyncio.TimeoutError())
+        mock.get(REPORT_URL, exception=TimeoutError())
         async with ZendureP1Client(HOST) as client:
             with pytest.raises(ZendureP1TimeoutError):
                 await client.get_report()
-

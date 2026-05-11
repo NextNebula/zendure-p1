@@ -1,9 +1,12 @@
-import asyncio
 from types import TracebackType
 
 import aiohttp
 
-from .exceptions import ZendureP1ConnectionError, ZendureP1ResponseError, ZendureP1TimeoutError
+from .exceptions import (
+    ZendureP1ConnectionError,
+    ZendureP1ResponseError,
+    ZendureP1TimeoutError,
+)
 from .models import Report
 
 _REPORT_PATH = "/properties/report"
@@ -39,7 +42,7 @@ class ZendureP1Client:
                 response.raise_for_status()
                 data = await response.json()
                 return Report.from_dict(data)
-        except asyncio.TimeoutError as e:
+        except TimeoutError as e:
             raise ZendureP1TimeoutError from e
         except aiohttp.ClientConnectionError as e:
             raise ZendureP1ConnectionError from e
