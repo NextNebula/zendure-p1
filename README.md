@@ -1,6 +1,6 @@
 # zendure-p1
 
-Asynchronous Python library for communicating with Zendure P1 Smart Meter.
+Async Python library for communicating with Zendure P1 Smart Meter.
 
 ## Installation
 
