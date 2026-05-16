@@ -55,6 +55,7 @@ Returned by `client.get_report()`. All power values are in watts.
 | Field | Type | Description |
 |---|---|---|
 | `timestamp` | `int` | Unix timestamp of the measurement |
+| `device_id` | `str` | Unique device identifier |
 | `a_apparent_power` | `int` | Apparent power on phase A |
 | `b_apparent_power` | `int` | Apparent power on phase B |
 | `c_apparent_power` | `int` | Apparent power on phase C |

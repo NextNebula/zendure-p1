@@ -12,6 +12,7 @@ from zendure_p1 import (
 
 REPORT_PAYLOAD = {
     "timestamp": 1715000000,
+    "deviceId": "abc123",
     "a_aprt_power": 100,
     "b_aprt_power": 200,
     "c_aprt_power": 300,
@@ -39,6 +40,7 @@ async def test_get_report_maps_all_fields() -> None:
             report = await client.get_report()
 
     assert report.timestamp == REPORT_PAYLOAD["timestamp"]
+    assert report.device_id == REPORT_PAYLOAD["deviceId"]
     assert report.a_apparent_power == REPORT_PAYLOAD["a_aprt_power"]
     assert report.b_apparent_power == REPORT_PAYLOAD["b_aprt_power"]
     assert report.c_apparent_power == REPORT_PAYLOAD["c_aprt_power"]

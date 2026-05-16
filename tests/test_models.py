@@ -4,6 +4,7 @@ from zendure_p1.models import Report
 
 REPORT_DATA = {
     "timestamp": 1715000000,
+    "deviceId": "abc123",
     "a_aprt_power": 100,
     "b_aprt_power": 200,
     "c_aprt_power": 300,
@@ -14,6 +15,7 @@ REPORT_DATA = {
 def test_from_dict_maps_all_fields() -> None:
     report = Report.from_dict(REPORT_DATA)
     assert report.timestamp == REPORT_DATA["timestamp"]
+    assert report.device_id == REPORT_DATA["deviceId"]
     assert report.a_apparent_power == REPORT_DATA["a_aprt_power"]
     assert report.b_apparent_power == REPORT_DATA["b_aprt_power"]
     assert report.c_apparent_power == REPORT_DATA["c_aprt_power"]
