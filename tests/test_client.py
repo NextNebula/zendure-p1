@@ -46,10 +46,14 @@ async def test_get_report_maps_all_fields() -> None:
     assert report.c_apparent_power == REPORT_PAYLOAD["c_aprt_power"]
 
 
-async def test_get_report_without_context_manager_raises_error() -> None:
-    client = ZendureP1Client(HOST)
-    with pytest.raises(RuntimeError, match="not open"):
-        await client.get_report()
+async def test_get_report_without_context_manager() -> None:
+    with aioresponses() as mock:
+        mock.get(REPORT_URL, payload=REPORT_PAYLOAD)
+        client = ZendureP1Client(HOST)
+        report = await client.get_report()
+        await client.close()
+
+    assert isinstance(report, Report)
 
 
 async def test_get_report_raises_on_http_error() -> None:

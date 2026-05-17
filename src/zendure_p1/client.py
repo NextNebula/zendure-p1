@@ -17,9 +17,9 @@ class ZendureP1Client:
         self._base_url = f"http://{host}"
         self._timeout = aiohttp.ClientTimeout(total=timeout)
         self._session: aiohttp.ClientSession | None = None
+        self._close_session: bool = False
 
     async def __aenter__(self) -> "ZendureP1Client":
-        self._session = aiohttp.ClientSession(timeout=self._timeout)
         return self
 
     async def __aexit__(
@@ -31,9 +31,10 @@ class ZendureP1Client:
         await self.close()
 
     async def close(self) -> None:
-        if self._session is not None:
+        if self._session is not None and self._close_session:
             await self._session.close()
             self._session = None
+            self._close_session = False
 
     async def get_report(self) -> Report:
         session = self._get_session()
@@ -51,7 +52,6 @@ class ZendureP1Client:
 
     def _get_session(self) -> aiohttp.ClientSession:
         if self._session is None:
-            raise RuntimeError(
-                "Client is not open. Use 'async with ZendureP1Client(...) as client:'"
-            )
+            self._session = aiohttp.ClientSession(timeout=self._timeout)
+            self._close_session = True
         return self._session
