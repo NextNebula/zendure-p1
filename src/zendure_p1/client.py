@@ -41,7 +41,7 @@ class ZendureP1Client:
         try:
             async with session.get(f"{self._base_url}{_REPORT_PATH}") as response:
                 response.raise_for_status()
-                data = await response.json()
+                data = await response.json(content_type=None)
                 return Report.from_dict(data)
         except TimeoutError as e:
             raise ZendureP1TimeoutError from e
