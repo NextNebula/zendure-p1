@@ -18,9 +18,9 @@ async def main():
     async with ZendureP1Client("192.168.1.100") as client:
         report = await client.get_report()
         print(f"Total power: {report.total_power} W")
-        print(f"Phase A: {report.a_apparent_power} W")
-        print(f"Phase B: {report.b_apparent_power} W")
-        print(f"Phase C: {report.c_apparent_power} W")
+        print(f"Phase A: {report.a_apparent_power} VA")
+        print(f"Phase B: {report.b_apparent_power} VA")
+        print(f"Phase C: {report.c_apparent_power} VA")
 
 asyncio.run(main())
 ```
@@ -50,16 +50,16 @@ async with ZendureP1Client("192.168.1.100", timeout=5.0) as client:
 
 ### `Report`
 
-Returned by `client.get_report()`. All power values are in watts.
+Returned by `client.get_report()`.
 
 | Field | Type | Description |
 |---|---|---|
 | `timestamp` | `int` | Unix timestamp of the measurement |
 | `device_id` | `str` | Unique device identifier |
-| `a_apparent_power` | `int` | Apparent power on phase A |
-| `b_apparent_power` | `int` | Apparent power on phase B |
-| `c_apparent_power` | `int` | Apparent power on phase C |
-| `total_power` | `int` | Total power across all phases |
+| `a_apparent_power` | `int` | Apparent power on phase A in VA |
+| `b_apparent_power` | `int` | Apparent power on phase B in VA |
+| `c_apparent_power` | `int` | Apparent power on phase C in VA |
+| `total_power` | `int` | Total active power across all phases in W |
 
 ## License
 
